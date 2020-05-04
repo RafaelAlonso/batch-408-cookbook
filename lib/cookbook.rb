@@ -52,6 +52,18 @@ class Cookbook
   end
 
   def save_csv
+    CSV.open(@csv_file, 'wb') do |csv|
+      # csv é todo o meu arquivo
+
+      # para cada uma das receitas que eu tenho
+      @recipes.each do |recipe|
+        # preciso transformar minha Recipe em Array de Strings
+        recipe_as_array = [recipe.name, recipe.description]
+
+        # preciso guardar a Array de Strings em CSV
+        csv << recipe_as_array
+      end
+    end
   end
 
 end
