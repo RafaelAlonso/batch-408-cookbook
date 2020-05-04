@@ -1,6 +1,6 @@
 class Cookbook
 
-  def initialize
+  def initialize(x)
     @recipes = []
   end
 
