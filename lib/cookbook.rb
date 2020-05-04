@@ -1,7 +1,20 @@
+require 'csv'
+require_relative 'recipe'
+
+# PARSING / STORING
+#  load   /  save
+
+
 class Cookbook
 
-  def initialize(x)
+  def initialize(csv_file_path)
+    # csv_file_path => String do caminho até o arquivo
     @recipes = []
+
+    @csv_file = csv_file_path
+
+    # load in initialize
+    load_csv
   end
 
   def all
@@ -11,11 +24,34 @@ class Cookbook
 
   def add_recipe(new_recipe)
     @recipes << new_recipe
+
+    # salvar as receitas no csv
+    save_csv
   end
 
   def remove_recipe(recipe_index)
     # delete_at remove um elemento da array baseado no ínidice dele
     @recipes.delete_at(recipe_index)
+
+    # salvar as receitas no csv
+    save_csv
+  end
+
+  private
+
+  def load_csv
+    CSV.foreach(@csv_file) do |row|
+      # cada linha do meu CSV (como Array)
+      # row na primeira vez => ['lasanha', 'bom demais']
+
+      # preciso transformar minha Array de Strings em Recipe
+      recipe_from_csv = Recipe.new(row[0], row[1])
+      # guardar a Recipe em @recipes
+      @recipes << recipe_from_csv
+    end
+  end
+
+  def save_csv
   end
 
 end
