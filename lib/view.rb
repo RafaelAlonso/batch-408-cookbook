@@ -4,7 +4,8 @@ class View
     recipes.each_with_index do |recipe, indice|
       # recipe é uma Recipe
       # puts recipe => <Recipe#127396786x...>
-      puts "#{indice + 1}. #{recipe.name}: #{recipe.description}"
+      x = recipe.done ? 'X' : ' '
+      puts "#{indice + 1}. [#{x}] #{recipe.name} (#{recipe.prep_time}): #{recipe.description}"
     end
   end
 

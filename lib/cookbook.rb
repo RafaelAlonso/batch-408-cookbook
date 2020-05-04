@@ -29,6 +29,17 @@ class Cookbook
     save_csv
   end
 
+  def mark_recipe(recipe_index)
+    # 1. recuperar a receita que queremos marcar
+    recipe = @recipes[recipe_index]
+
+    # 2. chama o método do modelo que faz essa marcação
+    recipe.mark_as_done!
+
+    # 3. salvar a alteração no csv
+    save_csv
+  end
+
   def remove_recipe(recipe_index)
     # delete_at remove um elemento da array baseado no ínidice dele
     @recipes.delete_at(recipe_index)
@@ -42,10 +53,10 @@ class Cookbook
   def load_csv
     CSV.foreach(@csv_file) do |row|
       # cada linha do meu CSV (como Array)
-      # row na primeira vez => ['lasanha', 'bom demais']
+      # row na primeira vez => ['lasanha', 'bom demais', '1h20min', 'true']
 
       # preciso transformar minha Array de Strings em Recipe
-      recipe_from_csv = Recipe.new(row[0], row[1])
+      recipe_from_csv = Recipe.new(row[0], row[1], row[2], row[3] == 'true')
       # guardar a Recipe em @recipes
       @recipes << recipe_from_csv
     end
@@ -58,7 +69,7 @@ class Cookbook
       # para cada uma das receitas que eu tenho
       @recipes.each do |recipe|
         # preciso transformar minha Recipe em Array de Strings
-        recipe_as_array = [recipe.name, recipe.description]
+        recipe_as_array = [recipe.name, recipe.description, recipe.prep_time, recipe.done]
 
         # preciso guardar a Array de Strings em CSV
         csv << recipe_as_array
