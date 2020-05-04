@@ -8,19 +8,9 @@ class View
     end
   end
 
-  def ask_user_for_name
-    puts "What is the name of the recipe?"
+  def ask_user_for(info_needed)
+    puts "What is the #{info_needed} of the recipe?"
     gets.chomp
-  end
-
-  def ask_user_for_desc
-    puts "What is the description of the recipe?"
-    gets.chomp
-  end
-
-  def ask_user_for_index
-    puts "What is the position of the recipe?"
-    gets.chomp.to_i - 1
   end
 
 end

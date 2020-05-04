@@ -20,9 +20,9 @@ class Controller
 
   def create
     # 1. saber o nome da receita (String)
-    name = @view.ask_user_for_name
+    name = @view.ask_user_for("name")
     # 2. saber a desc da receita (String)
-    desc = @view.ask_user_for_desc
+    desc = @view.ask_user_for("description")
     # 3. criar a receita com o nome e a desc
     new_recipe = Recipe.new(name, desc)
     # 4. mandar A RECEITA para o repositorio guardar
@@ -33,7 +33,7 @@ class Controller
     # 0. listar as receitas que temos
     list
     # 1. saber qual receita eu quero destruir => recebendo o índice dessa receita
-    recipe_index = @view.ask_user_for_index
+    recipe_index = @view.ask_user_for("position").to_i - 1
     # 2. mandar esse ínidice pro repositório destruir
     @cookbook.remove_recipe(recipe_index)
   end
