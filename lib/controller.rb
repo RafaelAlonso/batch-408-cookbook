@@ -30,6 +30,12 @@ class Controller
   end
 
   def destroy
+    # 0. listar as receitas que temos
+    list
+    # 1. saber qual receita eu quero destruir => recebendo o índice dessa receita
+    recipe_index = @view.ask_user_for_index
+    # 2. mandar esse ínidice pro repositório destruir
+    @cookbook.remove_recipe(recipe_index)
   end
 
 end
